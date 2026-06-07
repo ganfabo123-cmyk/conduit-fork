@@ -16,6 +16,7 @@ import NotFound from "./routes/NotFound";
 import Profile from "./routes/Profile/Profile";
 import ProfileArticles from "./routes/Profile/ProfileArticles";
 import ProfileFavArticles from "./routes/Profile/ProfileFavArticles";
+import ProfileAboutMe from "./routes/Profile/ProfileAboutMe";
 import Settings from "./routes/Settings";
 import SignUp from "./routes/SignUp";
 
@@ -38,13 +39,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path=":slug" element={<ArticleEditor />} />
             </Route>
 
-            <Route path="article/:slug" element={<Article />}>
-              <Route index element={<CommentsSection />} />
+            {/* 把profile路由放到article路由前面，避免路径被错误匹配 */}
+            <Route path="profile/:username" element={<Profile />}>
+              <Route index element={<ProfileAboutMe />} />
+              <Route path="about-me" element={<ProfileAboutMe />} />
+              <Route path="my-articles" element={<ProfileArticles />} />
+              <Route path="favorites" element={<ProfileFavArticles />} />
             </Route>
 
-            <Route path="profile/:username" element={<Profile />}>
-              <Route index element={<ProfileArticles />} />
-              <Route path="favorites" element={<ProfileFavArticles />} />
+            <Route path="article/:slug" element={<Article />}>
+              <Route index element={<CommentsSection />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
@@ -52,7 +56,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </AuthProvider>
     </HashRouter>
   </React.StrictMode>,
-  );
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
