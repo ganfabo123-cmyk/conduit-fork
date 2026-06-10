@@ -25,10 +25,13 @@ router.delete("/:slug", verifyToken, deleteArticle);
 
 const favoritesRoutes = require("./articles/favorites");
 const commentsRoutes = require("./articles/comments");
+const emojiReactionsRoutes = require("./articles/emojiReactions");
 
 //> Favorites routes
 router.use("/", favoritesRoutes);
 //> Comments routes
 router.use("/", commentsRoutes);
+//> Emoji Reactions routes
+router.use("/", emojiReactionsRoutes);
 
 module.exports = router;

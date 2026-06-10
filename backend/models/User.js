@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "Favorites",
         as: "favorites",
         foreignKey: "userId",
+        otherKey: "articleId",
         timestamps: false,
       });
 
@@ -29,12 +30,23 @@ module.exports = (sequelize, DataTypes) => {
         through: "Followers",
         as: "followers",
         foreignKey: "userId",
+        otherKey: "followerId",
         timestamps: false,
       });
       this.belongsToMany(User, {
         through: "Followers",
         as: "following",
         foreignKey: "followerId",
+        otherKey: "userId",
+        timestamps: false,
+      });
+
+      // Emoji Reactions
+      this.belongsToMany(Article, {
+        through: "EmojiReactions",
+        as: "emojiReactions",
+        foreignKey: "userId",
+        otherKey: "articleId",
         timestamps: false,
       });
     }
