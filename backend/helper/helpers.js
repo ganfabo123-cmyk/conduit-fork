@@ -39,4 +39,27 @@ const appendFollowers = async (loggedUser, toAppend) => {
   }
 };
 
-module.exports = { slugify, appendTagList, appendFavorites, appendFollowers };
+const appendEmojiReactions = async (loggedUser, article) => {
+  const validEmojiTypes = ['like', 'love', 'laugh', 'surprise', 'sad', 'angry'];
+  const counts = {};
+  const userReactions = [];
+
+  for (const type of validEmojiTypes) {
+    const count = await article.countEmojiReactions(type);
+    counts[type] = count;
+
+    if (loggedUser) {
+      const hasReacted = await article.hasUserEmojiReaction(loggedUser, type);
+      if (hasReacted) {
+        userReactions.push(type);
+      }
+    }
+  }
+
+  article.dataValues.emojiReactions = {
+    counts,
+    userReactions
+  };
+};
+
+module.exports = { slugify, appendTagList, appendFavorites, appendFollowers, appendEmojiReactions };

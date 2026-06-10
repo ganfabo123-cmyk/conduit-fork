@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import ArticleMeta from "../../components/ArticleMeta";
 import ArticlesButtons from "../../components/ArticlesButtons";
 import ArticleTags from "../../components/ArticleTags";
+import ArticleEmojiReaction from "../../components/ArticleEmojiReaction/ArticleEmojiReaction";
 import BannerContainer from "../../components/BannerContainer";
 import { useAuth } from "../../context/AuthContext";
 import getArticle from "../../services/getArticle";
@@ -41,6 +42,12 @@ function Article() {
           <div className="col-md-12">
             {body && <Markdown options={{ forceBlock: true }}>{body}</Markdown>}
             <ArticleTags tagList={tagList} />
+            <ArticleEmojiReaction
+              slug={slug}
+              userReactions={article.emojiReactions?.userReactions || []}
+              reactionCounts={article.emojiReactions?.counts || {}}
+              onReactionUpdate={(updatedArticle) => setArticle(updatedArticle)}
+            />
           </div>
         </div>
 

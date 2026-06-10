@@ -9,6 +9,7 @@ const {
   appendFollowers,
   appendFavorites,
   appendTagList,
+  appendEmojiReactions,
   slugify,
 } = require("../helper/helpers");
 const { Article, Tag, User } = require("../models");
@@ -60,6 +61,7 @@ const allArticles = async (req, res, next) => {
       appendTagList(articleTags, article);
       await appendFollowers(loggedUser, article);
       await appendFavorites(loggedUser, article);
+      await appendEmojiReactions(loggedUser, article);
 
       delete article.dataValues.Favorites;
     }
@@ -141,6 +143,7 @@ const articlesFeed = async (req, res, next) => {
       appendTagList(articleTags, article);
       await appendFollowers(loggedUser, article);
       await appendFavorites(loggedUser, article);
+      await appendEmojiReactions(loggedUser, article);
     }
 
     res.json({ articles: articles.rows, articlesCount: articles.count });
@@ -164,6 +167,7 @@ const singleArticle = async (req, res, next) => {
     appendTagList(article.tagList, article);
     await appendFollowers(loggedUser, article);
     await appendFavorites(loggedUser, article);
+    await appendEmojiReactions(loggedUser, article);
 
     res.json({ article });
   } catch (error) {
@@ -200,6 +204,7 @@ const updateArticle = async (req, res, next) => {
     appendTagList(article.tagList, article);
     await appendFollowers(loggedUser, article);
     await appendFavorites(loggedUser, article);
+    await appendEmojiReactions(loggedUser, article);
 
     res.json({ article });
   } catch (error) {
