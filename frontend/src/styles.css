@@ -1057,6 +1057,38 @@ fieldset[disabled] a.btn {
   background: none;
 }
 
+.tag-top-five {
+  background-color: #ff0000;
+  color: #fff;
+  border: 1px solid #ff0000;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  line-height: 1.1rem;
+  padding: 0.35rem 0.75rem;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  transition: background 300ms ease;
+  font-weight: 500;
+}
+
+.tag-top-five:hover {
+  text-decoration: none;
+  background-color: #cc0000;
+  border-color: #cc0000;
+}
+
+.top-five-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 0.75rem;
+  padding: 0 0.4em;
+  margin-right: 0.4em;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
 ul.tag-list {
   display: inline-block;
 }
